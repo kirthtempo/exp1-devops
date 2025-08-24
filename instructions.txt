@@ -1,0 +1,85 @@
+
+---
+
+## **Step 1: Install prerequisites**
+
+On your new PC, make sure they have:
+
+1. **Git** → [https://git-scm.com/downloads](https://git-scm.com/downloads)
+2. **Docker Desktop** → [https://www.docker.com/products/docker-desktop](https://www.docker.com/products/docker-desktop)
+
+Verify installation:
+
+```bash
+git --version
+docker --version
+```
+
+---
+
+## **Step 2: Clone the repo from GitHub**
+
+Open terminal (CMD, PowerShell, or Git Bash) and run:
+
+```bash
+cd path\to\folder\where\you\want\project
+git clone https://github.com/kirthtempo/exp1-devops.git
+cd exp1-devops
+```
+
+* This pulls all your code, templates, static files, and Dockerfile.
+
+---
+
+## **Step 3: Build the Docker image**
+
+Inside the cloned folder, run:
+
+```bash
+docker build -t simple-flask-app .
+```
+
+* Docker will install Python + Flask + dependencies from `requirements.txt`.
+* This may take a few minutes the first time.
+
+---
+
+## **Step 4: Run the Flask app**
+
+Run in normal mode:
+
+```bash
+docker run -p 5000:5000 simple-flask-app
+```
+
+* Terminal will show Flask logs like:
+
+```
+* Running on http://0.0.0.0:5000/
+```
+
+* Open browser → [http://localhost:5000/register](http://localhost:5000/register)
+* Fill the registration form → see success page. ✅
+
+**Optional:** Run in detached mode (background, no logs in terminal):
+
+```bash
+docker run -d -p 5000:5000 simple-flask-app
+docker ps       # see running containers
+docker stop <container_id>  # stop later
+```
+
+**Optional:** Mount project folder to see live updates without rebuilding:
+
+```bash
+docker run -p 5000:5000 -v "%cd%":/app simple-flask-app
+```
+
+---
+
+## **Step 5: Stop the app**
+
+* Press `CTRL+C` in terminal (if running normally).
+* Or `docker stop <container_id>` if running detached.
+
+---
